@@ -7,6 +7,8 @@ authors = ["Dmitrii Masliaev <m6ytcbi@gmail.com>"]
 [tool.poetry.dependencies]
 python = "^3.10"
 Django = "4.0.0"
+Pillow = "^10.0.0"
+environs = "^9.5.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
