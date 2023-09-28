@@ -7,15 +7,15 @@ class Place(models.Model):
     description_long = models.TextField(verbose_name='description_long')
     latitude = models.FloatField(verbose_name='latitude')
     longitude = models.FloatField(verbose_name='longitude')
-    image = models.ManyToManyField('Images', related_name='images', null=True, blank=True)
 
     def __str__(self):
         return self.title
 
 
 class Images(models.Model):
-    name = models.CharField(verbose_name='title', max_length=100)
+    place = models.ForeignKey(Place, on_delete=models.CASCADE, verbose_name='Place', related_name='images', blank=True)
     image = models.ImageField()
+    position = models.IntegerField(default=1, db_index=True)
 
     def __str__(self):
-        return self.name
+        return f'{self.position} {self.place}'

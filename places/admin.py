@@ -2,10 +2,17 @@ from django.contrib import admin
 from places.models import Place, Images
 
 
-@admin.register(Place)
-class PlaceAdmin(admin.ModelAdmin):
-    pass
-
 @admin.register(Images)
-class ImagesAdmin(admin.ModelAdmin):
-    pass
+class AdminImages(admin.ModelAdmin):
+    raw_id_fields = ['place', ]
+
+
+class ImageInline(admin.TabularInline):
+    model = Images
+
+
+@admin.register(Place)
+class AdminPlace(admin.ModelAdmin):
+    inlines = [
+        ImageInline,
+    ]
