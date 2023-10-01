@@ -1,28 +1,18 @@
 from django.contrib import admin
 from places.models import Place, Images
 from django.utils.html import format_html
+from adminsortable2.admin import SortableAdminBase
 
 SIZE_IMAGE = 200
 
 
-@admin.register(Images)
-class AdminImage(admin.ModelAdmin):
-    raw_id_fields = ['place']
-    readonly_fields = ['show_preview']
-
-    def show_preview(self, obj):
-        return format_html(
-            '<img src="{}" width="{}">', obj.image.url, 200
-        )
-
-
-class ImageInline(admin.TabularInline):
+class ImageInline(SortableAdminBase, admin.TabularInline):
     model = Images
-    readonly_fields = ['show_preview']
+    readonly_fields = ('show_preview',)
 
     def show_preview(self, obj):
         return format_html(
-            '<img src="{}" width="{}">', obj.image.url, 200
+            '<img src="{}" width="{}">', obj.image.url, SIZE_IMAGE
         )
 
 
