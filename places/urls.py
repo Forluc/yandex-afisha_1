@@ -1,5 +1,6 @@
 from django.urls import path
-from places.views import index, get_place_details
+
+from places.views import get_place_details, index
 
 urlpatterns = [
     path('', index, name='index'),
