@@ -19,11 +19,11 @@ env.read_env()
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = env.str('SECRET_KEY')
+SECRET_KEY = env.str('SECRET_KEY', default='REPLACE_ME')
 
-DEBUG = env.bool('DEBUG')
+DEBUG = env.bool('DEBUG', default='TRUE')
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default='127.0.0.1')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -104,7 +104,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 STATIC_URL = '/static/'
-STATIC_ROOT = f'{BASE_DIR}/static'
+
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = f'{BASE_DIR}/media'
