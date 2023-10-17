@@ -4,7 +4,8 @@ from django.utils.html import format_html
 
 from places.models import Image, Place
 
-SIZE_IMAGE = 200
+IMAGE_HEIGHT = 200
+IMAGE_WIDTH = 200
 
 
 class ImageInline(SortableAdminBase, admin.TabularInline):
@@ -13,7 +14,7 @@ class ImageInline(SortableAdminBase, admin.TabularInline):
 
     def show_preview(self, obj):
         return format_html(
-            '<img src="{}" width="{}">', obj.image.url, SIZE_IMAGE
+            '<img src="{}" width="{}" height ="{}">', obj.image.url, IMAGE_WIDTH, IMAGE_HEIGHT
         )
 
 
