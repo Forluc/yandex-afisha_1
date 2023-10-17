@@ -18,10 +18,10 @@ class Command(BaseCommand):
 
         place, created = Place.objects.get_or_create(
             title=response['title'],
-            short_description=response['description_short'],
-            long_description=response['description_long'],
             latitude=response['coordinates']['lat'],
             longitude=response['coordinates']['lng'],
+            defaults={'short_description': response['description_short'],
+                      'long_description': response['description_long']},
         )
 
         for pic_number, image_url in enumerate(response['imgs']):
