@@ -1,3 +1,5 @@
+from os.path import splitext
+
 import requests
 from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand
@@ -28,11 +30,8 @@ class Command(BaseCommand):
             response = requests.get(image_url)
             response.raise_for_status()
 
-            image = Image.objects.create(place=place)
-            image.image.save(
-                f'{place.title}_{pic_number}.jpg',
-                ContentFile(response.content),
-                save=True
-            )
+            uploaded_photo = ContentFile(response.content, name=f'{place.title}_{pic_number}{splitext(image_url)[1]}')
+            Image.objects.create(place=place, image=uploaded_photo)
+
         if created:
             self.stdout.write('New place loaded.')
