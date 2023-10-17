@@ -2,7 +2,7 @@ import requests
 from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand
 
-from places.models import Images, Place
+from places.models import Image, Place
 
 
 class Command(BaseCommand):
@@ -18,8 +18,8 @@ class Command(BaseCommand):
 
         place, created = Place.objects.get_or_create(
             title=response['title'],
-            description_short=response['description_short'],
-            description_long=response['description_long'],
+            short_description=response['description_short'],
+            long_description=response['description_long'],
             latitude=response['coordinates']['lat'],
             longitude=response['coordinates']['lng'],
         )
@@ -28,7 +28,7 @@ class Command(BaseCommand):
             response = requests.get(image_url)
             response.raise_for_status()
 
-            image = Images.objects.create(place=place)
+            image = Image.objects.create(place=place)
             image.image.save(
                 f'{place.title}_{pic_number}.jpg',
                 ContentFile(response.content),
