@@ -6,13 +6,13 @@ from places.models import Place
 
 
 def index(request):
-    geo_json = {
+    geo = {
         "type": "FeatureCollection",
         "features": []
     }
     places = Place.objects.all()
     for place in places:
-        geo_json["features"].append(
+        geo["features"].append(
             {
                 "type": "Feature",
                 "geometry": {
@@ -26,7 +26,7 @@ def index(request):
                 }
             }
         )
-    return render(request, 'index.html', context={'geo_json': geo_json})
+    return render(request, 'index.html', context={'geo_json': geo})
 
 
 def get_place_details(request, place_id):

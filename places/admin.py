@@ -12,9 +12,9 @@ class ImageInline(SortableAdminBase, admin.TabularInline):
     model = Image
     readonly_fields = ('show_preview',)
 
-    def show_preview(self, obj):
+    def show_preview(self, image):
         return format_html(
-            '<img src="{}" width="{}" height ="{}">', obj.image.url, IMAGE_WIDTH, IMAGE_HEIGHT
+            '<img src="{}" width="{}" height ="{}">', image.image.url, IMAGE_WIDTH, IMAGE_HEIGHT
         )
 
 
